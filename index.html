@@ -50,8 +50,14 @@ dialog.lbx .lbb button{min-width:54px;min-height:48px;border-radius:10px;border:
 .bk .err{color:#c0392b;font-size:.82rem;font-weight:600}
 /* admin demo */
 .adm{display:grid;gap:1rem}
-.adm .pick{display:flex;gap:.5rem;flex-wrap:wrap}
-.adm .pick button{width:74px;height:74px;border-radius:10px;overflow:hidden;padding:0;border:3px solid transparent;cursor:pointer;background:none}
+.adm .pick{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.6rem}
+@media(max-width:400px){.adm .pick{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.adm .pick button,.adm .pick .up{width:100%;height:auto;aspect-ratio:1;border-radius:12px;overflow:hidden;padding:0;border:3px solid transparent;cursor:pointer;background:none}
+.adm .pick .up{position:relative;display:grid;place-content:center;justify-items:center;gap:.3rem;border:2px dashed var(--adm-line,#bbb);background:var(--adm-bg,#fff);color:inherit;font-size:.8rem;font-weight:700;text-align:center;transition:border-color .2s,background .2s}
+.adm .pick .up:hover{border-color:var(--adm-acc,#000)}
+.adm .pick .up:focus-within{outline:3px solid var(--adm-acc,#000);outline-offset:2px}
+.adm .pick .up svg{width:26px;height:26px}
+.adm .pick .up input{position:absolute;inset:0;opacity:0;cursor:pointer;min-height:0;width:100%;height:100%;padding:0;border:0}
 .adm .pick button img{width:100%;height:100%;object-fit:cover}
 .adm .pick button[aria-pressed=true]{border-color:var(--adm-acc,#000)}
 .adm label{display:grid;gap:.35rem;font-size:.9rem;font-weight:600}
@@ -203,12 +209,12 @@ footer a{color:var(--or);display:inline-flex;min-height:44px;align-items:center}
  <div class="panel rv" style="--d:1"><div class="adm" id="adm" data-gal="galW">
  <div class="bar"><i></i>Owner view &middot; demo</div>
  <label>Notice at the top of the site<input id="admNotice" value="Now booking patios and driveways for spring"></label>
- <div><p style="margin:0 0 .5rem;font-weight:600;font-size:.9rem">1. Pick a photo from the job</p><div class="pick"><button type="button" aria-pressed="false" aria-label="Use photo 1"><img data-src-from="g1" alt=""></button><button type="button" aria-pressed="false" aria-label="Use photo 2"><img data-src-from="g2" alt=""></button><button type="button" aria-pressed="false" aria-label="Use photo 3"><img data-src-from="g3" alt=""></button><button type="button" aria-pressed="false" aria-label="Use photo 4"><img data-src-from="g4" alt=""></button></div></div>
+ <div><p style="margin:0 0 .5rem;font-weight:600;font-size:.9rem">1. Pick or upload a photo from the job</p><div class="pick"><button type="button" aria-pressed="false" aria-label="Use photo 1"><img data-src-from="g1" alt=""></button><button type="button" aria-pressed="false" aria-label="Use photo 2"><img data-src-from="g2" alt=""></button><button type="button" aria-pressed="false" aria-label="Use photo 3"><img data-src-from="g3" alt=""></button><button type="button" aria-pressed="false" aria-label="Use photo 4"><img data-src-from="g4" alt=""></button><label class="up"><input type="file" accept="image/*" id="admFile" aria-label="Upload a photo from your phone"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>Upload</label></div></div>
  <label>2. Name the project<input id="admTitle" placeholder="e.g. Backyard patio, Levittown"></label>
  <p class="err" id="admErr" hidden style="color:#c0392b;font-weight:600;font-size:.85rem;margin:0"></p>
  <button class="btn" type="button" id="admPub">3. Publish to the website</button>
  <p id="admOk" hidden style="margin:0;font-weight:600">Published. Scroll to the gallery to see it live.</p>
- <p class="demo-note" style="margin:0"><b>Admin profile demo.</b> In the real add-on the owner logs in with a password and changes stick. Here nothing is saved.</p>
+ <p class="demo-note" style="margin:0"><b>Admin profile demo.</b> In the real add-on the owner logs in with a password and changes stick. Here nothing is saved, and an uploaded photo never leaves your device.</p>
 </div></div>
 </div></section>
 
@@ -286,6 +292,7 @@ var adm=$("#adm");
 if(adm){var pk=null;var gal=d.getElementById(adm.getAttribute("data-gal"));
   adm.addEventListener("click",function(e){var b=e.target.closest(".pick button");if(b){$$(".pick button",adm).forEach(function(o){o.setAttribute("aria-pressed",o===b)});pk=b;}});
   $("#admPub").addEventListener("click",function(){var ti=$("#admTitle"),er=$("#admErr");if(!pk||!ti.value.trim()){er.hidden=false;er.textContent=!pk?"Pick a photo first.":"Give the project a name.";return;}er.hidden=true;var tpl=gal.querySelector("[data-tpl]")||gal.firstElementChild;var n=tpl.cloneNode(true);n.removeAttribute("data-tpl");n.hidden=false;var im=n.querySelector("img");im.src=pk.querySelector("img").src;im.alt=ti.value.trim();im.setAttribute("data-cap",ti.value.trim());var cap=n.querySelector("[data-capt]");if(cap)cap.textContent=ti.value.trim();var nw=n.querySelector("[data-new]");if(nw)nw.hidden=false;n.classList.add("in");gal.insertBefore(n,gal.firstChild);n.classList.add("flash");ti.value="";$("#admOk").hidden=false;setTimeout(function(){go(gal.id)},200);});
+  var uf=$("#admFile");if(uf)uf.addEventListener("change",function(){var f=uf.files&&uf.files[0];if(!f||!/^image\//.test(f.type))return;var b=d.createElement("button");b.type="button";b.setAttribute("aria-label","Use your uploaded photo");var im=d.createElement("img");im.alt="";im.src=URL.createObjectURL(f);b.appendChild(im);var up=uf.closest(".up");up.parentNode.insertBefore(b,up);$$(".pick button",adm).forEach(function(o){o.setAttribute("aria-pressed",o===b)});pk=b;uf.value="";});
   var nt=$("#admNotice");if(nt)nt.addEventListener("input",function(){$$("[data-notice]").forEach(function(x){x.textContent=nt.value||x.getAttribute("data-notice")})});}
 /* review feed demo */
 var rf=$("#rfeed");
