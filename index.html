@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){try{var d=document.documentElement;if(window.matchMedia&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window){d.classList.add('anim');setTimeout(function(){if(!window.__rv)d.classList.remove('anim')},2500)}}catch(e){}})();</script>
 <meta name="robots" content="noindex, nofollow">
 <title>Wilfredo Construction | Patios, Concrete & Remodeling in Hempstead, NY</title>
 <meta name="description" content="Paver patios, steps, concrete and pool-deck work plus kitchen, bathroom and basement remodeling in Hempstead, NY.">
@@ -218,6 +219,76 @@ footer .base{border-top:1px solid #2a2c2f;margin-top:40px;padding-top:20px;displ
 </style>
 <style>[hidden]{display:none!important}html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 .concept-note{background:#111;color:#bbb;font:12px/1.4 system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;padding:10px max(16px,env(safe-area-inset-left,0px))}.logo{background:#fff;overflow:hidden;padding:0}.logo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.12)}</style>
+<style data-anim>
+/* ---- motion: baseline ---- */
+.anim [data-a]{transition-delay:var(--d,0s)}
+.anim [data-a="rv"]{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.anim [data-a="fade"]{opacity:0;transition:opacity .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.anim [data-a="mask-up"]{clip-path:inset(100% 0 0 0);transition:clip-path 1s cubic-bezier(.65,0,.25,1);transition-delay:var(--d,0s)}
+.anim [data-a="mask-down"]{clip-path:inset(0 0 100% 0);transition:clip-path 1s cubic-bezier(.65,0,.25,1);transition-delay:var(--d,0s)}
+.anim [data-a="mask-left"]{clip-path:inset(0 100% 0 0);transition:clip-path 1.1s cubic-bezier(.65,0,.25,1);transition-delay:var(--d,0s)}
+.anim [data-a="mask-right"]{clip-path:inset(0 0 0 100%);transition:clip-path 1.1s cubic-bezier(.65,0,.25,1);transition-delay:var(--d,0s)}
+.anim [data-a].is-in{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+@media (prefers-reduced-motion:no-preference){
+ .btn,a.btn,button,.call,.lrow,.txtlink{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease,color .2s ease,border-color .2s ease}
+ .btn:hover,a.btn:hover{transform:translateY(-2px)}
+ .btn:active,a.btn:active{transform:translateY(0)}
+ [data-faq-a]:not([hidden]),[data-if="menuOpen"]:not([hidden]){animation:mIn .3s cubic-bezier(.2,.7,.2,1)}
+ @keyframes mIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+.anim .hero [data-a="shape"].is-in{transform:translateX(-50%)}
+.anim [data-a="shape"]{opacity:0;transform:translateX(-50%) scale(.72);transform-origin:50% 100%;transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.anim [data-a="cutout"]{opacity:0;transform:translateY(34px) scale(.92);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.anim [data-a="cutout"] img{transform:scale(1.18);transition:transform 1.8s cubic-bezier(.2,.7,.2,1) .2s}
+.anim [data-a="cutout"].is-in img{transform:scale(1)}
+
+@keyframes h-rv{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes h-fade{from{opacity:0}to{opacity:1}}
+@keyframes h-mask-up{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes h-shape{from{opacity:0;transform:translateX(-50%) scale(.72)}to{opacity:1;transform:translateX(-50%)}}
+@keyframes h-cutout{from{opacity:0;transform:translateY(34px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes h-zoom{from{transform:scale(1.16)}to{transform:scale(1)}}
+@keyframes h-wipe{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
+@keyframes h-frame-img{from{clip-path:inset(100% 0 0 0);transform:scale(1.1)}to{clip-path:inset(0 0 0 0);transform:scale(1)}}
+@keyframes h-frame-bg{from{opacity:0;transform:translate(-14px,-14px)}to{opacity:1;transform:none}}
+@keyframes h-brush{from{-webkit-mask-position:100% 0%;mask-position:100% 0%}to{-webkit-mask-position:0% 0%;mask-position:0% 0%}}
+@keyframes h-stack-a{from{opacity:0;transform:translateY(40px) rotate(0deg)}to{opacity:1;transform:rotate(-7deg)}}
+@keyframes h-stack-b{from{opacity:0;transform:translateY(40px) rotate(0deg)}to{opacity:1;transform:rotate(5deg)}}
+@keyframes h-cine{0%{clip-path:inset(16% 0 16% 0);transform:scale(1.12);filter:brightness(.35)}100%{clip-path:inset(0 0 0 0);transform:scale(1);filter:brightness(1)}}
+.anim .hero .proof{animation:h-rv 0.7s cubic-bezier(.2,.7,.2,1) 0.00s both}
+.anim .hero h1{animation:h-rv 0.7s cubic-bezier(.2,.7,.2,1) 0.08s both}
+.anim .hero .lead{animation:h-rv 0.7s cubic-bezier(.2,.7,.2,1) 0.16s both}
+.anim .hero .copy .btn{animation:h-rv 0.7s cubic-bezier(.2,.7,.2,1) 0.24s both}
+.anim .hero .circle{animation:h-shape 1.0s cubic-bezier(.2,.7,.2,1) 0.05s both}
+.anim .hero .cutout{animation:h-cutout 1.1s cubic-bezier(.2,.7,.2,1) 0.20s both}
+.anim .hero .cutout img{animation:h-zoom 1.8s cubic-bezier(.2,.7,.2,1) 0.40s both}
+.anim .hero .chip{animation:h-rv 0.7s cubic-bezier(.2,.7,.2,1) 0.75s both}
+.anim .hero .chip:nth-child(2){animation-delay:0.87s}
+.anim .hero .chip:nth-child(3){animation-delay:0.99s}
+.anim .hero .chip:nth-child(4){animation-delay:1.11s}
+.anim .hero .chip:nth-child(5){animation-delay:1.23s}
+.anim .hero .chip:nth-child(6){animation-delay:1.35s}
+.anim .hero .chip:nth-child(7){animation-delay:1.47s}
+.anim .hero .chip:nth-child(8){animation-delay:1.59s}</style>
+<style data-premium>
+.mbar{display:none}
+@media (max-width:720px){
+ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+ .mbar{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(0,0,0,.08);
+  transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.7,.2,1);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+ .mbar.show{transform:none}
+ .mbar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:12px;font-weight:700;font-size:15px;text-decoration:none}
+ .mbar .c{border:1.5px solid #24272B;color:#24272B;background:#fff}
+ .mbar .e{background:#A32326;color:#fff}
+}
+@media (prefers-reduced-motion:reduce){.mbar{transition:none}}
+nav a[aria-current="true"]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:7px;text-decoration-color:#A32326}
+.req{font-size:12.5px;opacity:.75;margin:2px 0 4px}
+button[aria-busy="true"]{opacity:.75;cursor:progress}
+</style>
 </head>
 <body>
 <div class="wc">
@@ -488,6 +559,7 @@ footer .base{border-top:1px solid #2a2c2f;margin-top:40px;padding-top:20px;displ
 <div class="field"><label for="cm">Message</label><textarea id="cm" placeholder="Tell us about the space and your timeline"></textarea></div>
 <div data-if="error" hidden><div class="err" role="alert"><span data-bind="error"></span></div></div>
 <div data-if="sent" hidden><div class="note" role="status">Thanks, <span data-bind="f_name"></span>. This is a sample site, so the form isn't connected yet. Once it's live, requests go straight to Wilfredo. For now, call (516) 476-6653.</div></div>
+<p class="req">Required: your name and a phone number or email.</p>
 <button class="btn btn-bur" type="submit" style="width:100%">Send Request</button>
 </form>
 </section>
@@ -503,6 +575,7 @@ footer .base{border-top:1px solid #2a2c2f;margin-top:40px;padding-top:20px;displ
 </div></footer>
 
 </div>
+<div class="mbar" aria-label="Quick contact"><a class="c" href="tel:+15164766653"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a><a class="e" href="#contact">Free estimate</a></div>
 <p class="concept-note">Website concept — preview for review.</p>
 <script>
 (function(){
@@ -534,9 +607,43 @@ footer .base{border-top:1px solid #2a2c2f;margin-top:40px;padding-top:20px;displ
       if(err){var t=err.querySelector('[data-bind]')||err;}
       if(msg){if(err){err.querySelector('[data-bind="error"]').textContent=msg;err.hidden=false;}if(ok)ok.hidden=true;return;}
       if(err)err.hidden=true;
-      if(ok){$$('[data-bind="name"]',ok).forEach(function(s){s.textContent=name?name.value.trim():''});
-        $$('[data-bind="f_name"]',ok).forEach(function(s){s.textContent=name?name.value.trim():''});ok.hidden=false;}
+      var sb=f.querySelector('[type="submit"]'),lbl=sb?sb.innerHTML:'';
+      if(sb){sb.disabled=true;sb.setAttribute('aria-busy','true');sb.innerHTML='<span>Sending…</span>';}
+      setTimeout(function(){
+        if(sb){sb.disabled=false;sb.removeAttribute('aria-busy');sb.innerHTML=lbl;}
+        if(ok){$$('[data-bind="name"]',ok).forEach(function(s){s.textContent=name?name.value.trim():''});
+          $$('[data-bind="f_name"]',ok).forEach(function(s){s.textContent=name?name.value.trim():''});ok.hidden=false;ok.scrollIntoView({block:'nearest',behavior:'smooth'});}
+      },650);
     });});
+})();
+</script>
+
+<script>
+(function(){
+  var d=document.documentElement; window.__rv=1; if(!d.classList.contains('anim'))return;
+  var C=[{"s": ".intro .head", "t": "rv"}, {"s": ".intro .vanimg", "t": "mask-left", "d": 0.1}, {"s": ".about .ph img", "t": "mask-up"}, {"s": ".about .values > div", "t": "rv", "st": 0.1}, {"s": ".services h2, .services .sub", "t": "rv", "st": 0.08}, {"s": ".scard", "t": "rv", "st": 0.1}, {"s": ".scard img", "t": "mask-up", "d": 0.15, "st": 0.1}, {"s": ".sector img", "t": "mask-right", "st": 0.12}, {"s": ".projects .head", "t": "rv"}, {"s": ".pgrid img", "t": "mask-up", "st": 0.15}, {"s": ".stats .tile", "t": "rv", "st": 0.08}, {"s": ".why .row > img", "t": "mask-up"}, {"s": ".fcard", "t": "rv", "st": 0.08}, {"s": ".rv", "t": "rv", "st": 0.1}, {"s": ".contact > img", "t": "mask-right"}];
+  var hero=[],obs=[];
+  C.forEach(function(c){var els=Array.prototype.slice.call(document.querySelectorAll(c.s));
+    els.forEach(function(el,i){if(el.hasAttribute('data-a'))return;el.setAttribute('data-a',c.t);
+      el.style.setProperty('--d',((c.d||0)+i*(c.st||0)).toFixed(2)+'s');(c.h?hero:obs).push(el);});});
+  // observe the parent: a target hidden by its own clip-path never reports as intersecting
+  var map=new Map();
+  obs.forEach(function(el){var p=el.parentElement||el;if(!map.has(p))map.set(p,[]);map.get(p).push(el);});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){(map.get(e.target)||[]).forEach(function(el){el.classList.add('is-in')});io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:0});
+  map.forEach(function(v,p){io.observe(p)});
+})();
+</script>
+<script>
+(function(){
+  var bar=document.querySelector('.mbar'),hero=document.querySelector('.hero');
+  if(bar&&hero&&'IntersectionObserver' in window){new IntersectionObserver(function(es){bar.classList.toggle('show',!es[0].isIntersecting)},{threshold:0}).observe(hero);}
+  else if(bar){bar.classList.add('show');}
+  // active section in the main nav
+  var links=[].slice.call(document.querySelectorAll('nav a[href^="#"]')).filter(function(a){return a.getAttribute('href').length>1&&a.getAttribute('href')!=='#top'});
+  if(!links.length||!('IntersectionObserver' in window))return;
+  var by={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);(by[id]=by[id]||[]).push(a)});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;links.forEach(function(a){a.removeAttribute('aria-current')});(by[e.target.id]||[]).forEach(function(a){a.setAttribute('aria-current','true')});});},{rootMargin:'-45% 0px -50% 0px'});
+  Object.keys(by).forEach(function(id){var s=document.getElementById(id);if(s)io.observe(s)});
 })();
 </script>
 </body>
