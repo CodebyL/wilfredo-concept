@@ -289,6 +289,20 @@ nav a[aria-current="true"]{text-decoration:underline;text-decoration-thickness:2
 .req{font-size:12.5px;opacity:.75;margin:2px 0 4px}
 button[aria-busy="true"]{opacity:.75;cursor:progress}
 </style>
+<style data-navfix>
+[id]{scroll-margin-top:calc(var(--hh,84px) + 14px)}
+.menubtn{width:auto!important;padding:0 14px 0 12px!important;gap:8px;font:inherit;font-weight:700;font-size:14px;color:inherit}
+.menubtn .i-close{display:none}.menubtn.is-open .i-close{display:block}.menubtn.is-open .i-open{display:none}
+[data-if="menuOpen"]{max-height:calc(100vh - var(--hh,84px));max-height:calc(100dvh - var(--hh,84px));overflow:auto;overscroll-behavior:contain}
+.mcta{font-weight:800!important}
+
+.wc{overflow:visible;overflow-x:clip}
+header.nav{position:sticky;top:0;z-index:70;background:#fff;transition:box-shadow .2s ease}
+header.nav.is-stuck{box-shadow:0 6px 20px rgba(0,0,0,.08)}
+header.nav .logo{transition:margin .25s ease,transform .25s ease}
+header.nav.is-stuck .logo{margin-top:0;margin-bottom:0;transform:scale(.86)}
+@media (max-width:980px){header.nav .wide.row{min-height:76px}}
+</style>
 </head>
 <body>
 <div class="wc">
@@ -304,11 +318,11 @@ button[aria-busy="true"]{opacity:.75;cursor:progress}
 <a href="#services">Services</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#area">Service Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
 </nav>
 <a class="callpanel" href="tel:+15164766653"><small>Free estimates</small><b>(516) 476-6653</b></a>
-<button class="menubtn" type="button" aria-label="Open menu" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#24272B" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<button class="menubtn" type="button" aria-label="Open menu" aria-expanded="false"><svg class="i-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="mlbl">Menu</span></button>
 </div>
 <div data-if="menuOpen" hidden>
 <nav class="mobmenu" aria-label="Mobile">
-<a href="#services">Services</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#area">Service Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="tel:+15164766653" style="color:#A32326">Call (516) 476-6653</a>
+<a href="#services">Services</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#area">Service Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="tel:+15164766653" style="color:#A32326">Call (516) 476-6653</a><a class="mcta" href="#contact" style="background:#A32326;color:#fff">Get a free estimate</a>
 </nav>
 </div>
 </header>
@@ -580,9 +594,20 @@ button[aria-busy="true"]{opacity:.75;cursor:progress}
 <script>
 (function(){
   var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-  // mobile menu
-  $$('.menubtn').forEach(function(b){b.addEventListener('click',function(){var m=$('[data-if="menuOpen"]');if(!m)return;var o=m.hidden;m.hidden=!o;b.setAttribute('aria-expanded',String(o));});});
-  $$('[data-if="menuOpen"] a').forEach(function(a){a.addEventListener('click',function(){var m=$('[data-if="menuOpen"]');m.hidden=true;$$('.menubtn').forEach(function(b){b.setAttribute('aria-expanded','false')});});});
+  // menu (mobile everywhere; desktop too where a site has no inline nav)
+  var mbs=$$('.menubtn'),panel=$('[data-if="menuOpen"]');
+  if(panel&&mbs.length){
+    if(!panel.id)panel.id='site-menu';
+    mbs.forEach(function(b){b.setAttribute('aria-controls',panel.id)});
+    var setOpen=function(o,back){panel.hidden=!o;document.documentElement.classList.toggle('menu-open',o);
+      mbs.forEach(function(b){b.setAttribute('aria-expanded',String(o));b.setAttribute('aria-label',o?'Close menu':'Open menu');b.classList.toggle('is-open',o);var l=b.querySelector('.mlbl');if(l)l.textContent=o?'Close':'Menu';});
+      if(o){var f=panel.querySelector('a,button');if(f)f.focus({preventScroll:true});}else if(back){var vb=mbs.filter(function(b){return b.offsetParent})[0];if(vb)vb.focus();}};
+    mbs.forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();setOpen(panel.hidden,false)})});
+    $$('a',panel).forEach(function(a){a.addEventListener('click',function(){setOpen(false,false)})});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden)setOpen(false,true)});
+    document.addEventListener('click',function(e){if(!panel.hidden&&!panel.contains(e.target))setOpen(false,false)});
+    window.addEventListener('resize',function(){if(!panel.hidden&&!mbs.some(function(b){return b.offsetParent}))setOpen(false,false)});
+  }
   // FAQ accordion
   var qs=$$('[data-faq-a]');
   qs.forEach(function(ans){var btn=ans.parentNode.querySelector('button');btn.addEventListener('click',function(){var open=!ans.hidden;qs.forEach(function(o){o.hidden=true;var b=o.parentNode.querySelector('button');b.setAttribute('aria-expanded','false');var p=b.querySelector('path');if(p)p.setAttribute('d','M12 5v14M5 12h14');});if(!open){ans.hidden=false;btn.setAttribute('aria-expanded','true');var p=btn.querySelector('path');if(p)p.setAttribute('d','M5 12h14');}});});
@@ -638,12 +663,27 @@ button[aria-busy="true"]{opacity:.75;cursor:progress}
   var bar=document.querySelector('.mbar'),hero=document.querySelector('.hero');
   if(bar&&hero&&'IntersectionObserver' in window){new IntersectionObserver(function(es){bar.classList.toggle('show',!es[0].isIntersecting)},{threshold:0}).observe(hero);}
   else if(bar){bar.classList.add('show');}
-  // active section in the main nav
-  var links=[].slice.call(document.querySelectorAll('nav a[href^="#"]')).filter(function(a){return a.getAttribute('href').length>1&&a.getAttribute('href')!=='#top'});
-  if(!links.length||!('IntersectionObserver' in window))return;
-  var by={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);(by[id]=by[id]||[]).push(a)});
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;links.forEach(function(a){a.removeAttribute('aria-current')});(by[e.target.id]||[]).forEach(function(a){a.setAttribute('aria-current','true')});});},{rootMargin:'-45% 0px -50% 0px'});
-  Object.keys(by).forEach(function(id){var s=document.getElementById(id);if(s)io.observe(s)});
+  // active section: the last linked section whose top has passed just below the header (stable, no flicker)
+  var links=[].slice.call(document.querySelectorAll('nav a[href^="#"]')).filter(function(a){var h=a.getAttribute('href');return h.length>1&&h!=='#top'&&document.getElementById(h.slice(1))});
+  if(!links.length)return;
+  var ids=[];links.forEach(function(a){var id=a.getAttribute('href').slice(1);if(ids.indexOf(id)<0)ids.push(id)});
+  ids.sort(function(a,b){return document.getElementById(a).compareDocumentPosition(document.getElementById(b))&2?1:-1});
+  var secs=ids.map(function(id){return document.getElementById(id)});
+  var cur=null,tick=false;
+  var upd=function(){tick=false;var hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hh'))||80;var line=hh+Math.min(160,innerHeight*.25);
+    var pick=null;secs.forEach(function(s,i){if(s.getBoundingClientRect().top<=line)pick=ids[i]});
+    if(Math.ceil(scrollY+innerHeight)>=document.documentElement.scrollHeight-2)pick=ids[ids.length-1];
+    if(pick===cur)return;cur=pick;links.forEach(function(a){if(a.getAttribute('href')==='#'+pick)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});};
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});window.addEventListener('resize',upd);upd();
+})();
+</script>
+<script>
+(function(){
+  var hdr=document.querySelector('header.nav');if(!hdr)return;var d=document.documentElement;
+  var set=function(){d.style.setProperty('--hh',Math.round(hdr.getBoundingClientRect().height)+'px')};
+  set();window.addEventListener('resize',set);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(set);
+  var stuck=function(){hdr.classList.toggle('is-stuck',window.scrollY>40)};stuck();window.addEventListener('scroll',stuck,{passive:true});
+  if(location.hash.length>1){var t=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)window.addEventListener('load',function(){set();t.scrollIntoView({block:'start'})});}
 })();
 </script>
 </body>
